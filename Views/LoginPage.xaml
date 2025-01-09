@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="LoginForm.Views.LoginPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:viewModels="clr-namespace:LoginForm.ViewModels"
+    Title="LoginPage"
+    x:DataType="viewModels:LoginViewModel"
+    Shell.NavBarIsVisible="False">
+
+    <Grid ColumnDefinitions="*">
+        <!--  Background  -->
+        <BoxView
+            Grid.Row="0"
+            Opacity="0.85"
+            ZIndex="1">
+            <BoxView.Background>
+                <LinearGradientBrush EndPoint="0,1">
+                    <GradientStop Offset="0.15" Color="#36618E" />
+                    <GradientStop Offset="0.30" Color="#12FFFFFF" />
+                    <GradientStop Offset="0.75" Color="#36618E" />
+                    <GradientStop Offset="0.95" Color="#FF2D2D2D" />
+                </LinearGradientBrush>
+            </BoxView.Background>
+        </BoxView>
+
+        <Image
+            Grid.Row="0"
+            Aspect="AspectFill"
+            Source="kans_background.png"
+            ZIndex="0" />
+
+        <Grid
+            Margin="16"
+            ColumnDefinitions="*,*"
+            ColumnSpacing="8"
+            RowDefinitions="auto, 0.25*, auto, auto, *, auto"
+            RowSpacing="8"
+            ZIndex="2">
+
+            <!--  Logotype  -->
+            <Image
+                Grid.Row="0"
+                Grid.ColumnSpan="2"
+                HorizontalOptions="CenterAndExpand"
+                Source="logotype.png" />
+
+            <!--  Student Button  -->
+            <Border
+                Grid.Row="2"
+                Grid.Column="0"
+                Stroke="Transparent"
+                StrokeShape="RoundRectangle 12,0,12,0">
+
+                <Button
+                    BackgroundColor="{StaticResource Disabled}"
+                    Command="{Binding Source={RelativeSource AncestorType={x:Type viewModels:LoginViewModel}}, Path=SingleSelectionButtonClickedCommand}"
+                    CommandParameter="{Binding StudentSingleSelectionButton}"
+                    Text="{Binding StudentSingleSelectionButton.Text}"
+                    TextColor="White">
+                    <Button.Triggers>
+                        <DataTrigger
+                            Binding="{Binding StudentSingleSelectionButton.Enabled}"
+                            TargetType="Button"
+                            Value="True">
+                            <Setter Property="BackgroundColor" Value="{StaticResource Enabled}" />
+                        </DataTrigger>
+                    </Button.Triggers>
+                </Button>
+            </Border>
+
+            <!--  Lecturer Button  -->
+            <Border
+                Grid.Row="2"
+                Grid.Column="1"
+                Stroke="Transparent"
+                StrokeShape="RoundRectangle 0,12,0,12">
+
+                <Button
+                    BackgroundColor="{StaticResource Disabled}"
+                    Command="{Binding Source={RelativeSource AncestorType={x:Type viewModels:LoginViewModel}}, Path=SingleSelectionButtonClickedCommand}"
+                    CommandParameter="{Binding LecturerSingleSelectionButton}"
+                    Text="{Binding LecturerSingleSelectionButton.Text}"
+                    TextColor="White">
+                    <Button.Triggers>
+                        <DataTrigger
+                            Binding="{Binding LecturerSingleSelectionButton.Enabled}"
+                            TargetType="Button"
+                            Value="True">
+                            <Setter Property="BackgroundColor" Value="{StaticResource Enabled}" />
+                        </DataTrigger>
+                    </Button.Triggers>
+                </Button>
+            </Border>
+
+            <!--  LoginForm  -->
+            <Border
+                Grid.Row="3"
+                Grid.Column="0"
+                Grid.ColumnSpan="2"
+                Padding="16"
+                BackgroundColor="White"
+                Stroke="Transparent"
+                StrokeShape="RoundRectangle 12">
+                <Grid
+                    RowDefinitions="auto, auto, auto, auto, auto"
+                    RowSpacing="8">
+
+                    <!--  Login as ...  -->
+                    <Label
+                        Grid.Row="0"
+                        FontSize="18"
+                        HorizontalOptions="CenterAndExpand"
+                        Text="{Binding LoginAsMessage}" />
+
+                    <!--  Email  -->
+                    <VerticalStackLayout Grid.Row="1">
+                        <Label Text="Email" />
+                        <Entry
+                            Placeholder="JohnDoe@gmail.com"
+                            Text="{Binding Email}" />
+                    </VerticalStackLayout>
+
+                    <!--  Password  -->
+                    <VerticalStackLayout Grid.Row="2">
+                        <Label Text="Password" />
+                        <Entry
+                            Placeholder="Secret Password"
+                            Text="{Binding Password}" />
+                    </VerticalStackLayout>
+
+                    <!--  Remember me  -->
+                    <HorizontalStackLayout
+                        Grid.Row="3"
+                        HorizontalOptions="EndAndExpand">
+                        <CheckBox
+                            IsChecked="{Binding RememberMeEnabled}"
+                            Color="{StaticResource Enabled}" />
+                        <Label
+                            Text="Remember me"
+                            VerticalOptions="CenterAndExpand" />
+                    </HorizontalStackLayout>
+
+                    <!--  Login  -->
+                    <Button
+                        Grid.Row="4"
+                        Margin="0,24,0,0"
+                        BackgroundColor="{StaticResource Enabled}"
+                        Command="{Binding LoginCommand}"
+                        Text="Login" />
+
+                </Grid>
+            </Border>
+
+            <!--  Authors  -->
+            <Label
+                Grid.Row="4"
+                Grid.ColumnSpan="2"
+                HorizontalOptions="CenterAndExpand"
+                Text="Jakub Poddębniak &amp; Grzegorz Sobczak 2025"
+                TextColor="White"
+                VerticalOptions="EndAndExpand" />
+
+        </Grid>
+
+    </Grid>
+
+</ContentPage>
